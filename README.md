@@ -1,4 +1,4 @@
-# Gist as CDN
+# Gist as CDN [![Dogfooding this action](https://github.com/SivanMehta/gist-as-cdn/actions/workflows/main.yml/badge.svg)](https://github.com/SivanMehta/gist-as-cdn/actions/workflows/main.yml)
 
 Use a github gist as a CDN for your assets.
 

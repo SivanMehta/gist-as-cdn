@@ -1,5 +1,5 @@
 name: 'Gist as CDN'
-description: 'Upload artifacts to a gisthub hist'
+description: 'Upload artifacts to a github gist'
 inputs:
   who-to-greet:  # id of input
     description: 'Who to greet'

@@ -1,15 +1,28 @@
-on: [push]
+name: Dogfooding this action
+on:
+  push:
+    branches: [ master, testing ]
+
+env:
+  FILES: "README.md" # we'll use this repo's README as an example
+  GIST: "a75f4dcf3202a129802100332335019a"
 
 jobs:
-  hello_world_job:
+  build:
+    name: dogfood
     runs-on: ubuntu-latest
-    name: A job to say hello
+
     steps:
-      - name: Hello world action step
-        id: hello
-        uses: sivanmehta/gist-as-cdn@v1.0.1
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
         with:
-          who-to-greet: 'Mona the Octocat'
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+          node-version: '16'
+
+      - name: Run
+        run: node dist/index.js
+        env:
+          INPUT_FILES: ${{ env.FILES }}
+          INPUT_GIST: ${{ env.GIST }}

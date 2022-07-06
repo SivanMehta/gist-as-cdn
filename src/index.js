@@ -1,19 +1,16 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+import { getInput, setFailed } from '@actions/core';
+import FileSet from 'file-set';
 
 async function run() {
-  const who = core.getInput('who-to-greet');
-  console.log(`Hello ${who}!`);
-
-  const time = (new Date()).toTimeString();
-  core.setOutput('time', time);
-
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
-  console.log(`The event payload: ${payload}`);
-}
-
+  const glob = getInput('FILES');
+  const fileSet = new FileSet();
+  await fileSet.add([glob]);
+  const { files } = fileSet; 
+  
+  const gist = getInput('GIST');
+  console.log(`uploading ${files} to ${gist}`);}
 try {
   run();
 } catch (e) {
-  core.setFailed(e.message);
+  setFailed(e.message);
 }
