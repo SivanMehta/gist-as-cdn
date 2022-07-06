@@ -12,3 +12,4 @@ runs:
   steps:
     - name: "list files"
       run: ls
+      shell: bash
