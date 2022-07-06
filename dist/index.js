@@ -5720,7 +5720,6 @@ async function run() {
   
   const gist = (0,core.getInput)('GIST');
   console.log(`uploading ${files} to ${gist}`);}
-
 try {
   run();
 } catch (e) {
