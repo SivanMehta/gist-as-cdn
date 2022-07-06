@@ -1,13 +1,12 @@
 name: 'Gist as CDN'
-description: 'Upload artifacts to a gisthub hist'
+description: 'Upload artifacts to a github gist'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  FILES:  # id of input
+    description: 'Glob of file(s) to upload'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  GIST:
+    description: "Where to upload files"
+    required: true
 runs:
   using: 'node16'
-  main: 'src/index.js'
+  main: 'dist/index.js'
