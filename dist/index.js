@@ -5423,11 +5423,14 @@ function wrappy (fn, cb) {
 const { getInput } = __nccwpck_require__(186);
 const FileSet = __nccwpck_require__(920);
 
-async function run(overrides = false) {
+async function generateFiles(glob) {
+  const fileSet = new FileSet();
+  await fileSet.add([glob]);
+  return fileSet.files;
+}
+
+function generateInput(overrides) {
   let glob, gist, token;
-
-  console.log(process.env);
-
   if(overrides) {
     glob = overrides.glob;
     gist = overrides.gist;
@@ -5438,13 +5441,30 @@ async function run(overrides = false) {
     token = getInput('TOKEN');
   }
 
-  console.log('token', token);
+  return {
+    glob, gist, token
+  };
+}
 
-  const fileSet = new FileSet();
-  await fileSet.add([glob]);
-  const { files } = fileSet; 
-  
-  console.log(`uploading ${files} to ${gist}`);
+async function uploadFiles(files, gist, token) {
+  const octokit = github.getOctokit(token);
+
+  const { data: pullRequest } = await octokit.rest.pulls.get({
+    owner: 'SivanMehta',
+    repo: 'gist-as-cdn',
+    pull_number: 1,
+    mediaType: {
+      format: 'diff'
+    }
+  });
+
+  console.log(pullRequest);
+}
+
+async function run(overrides = false) {
+  const { glob, gist, token } = generateInput(overrides);
+  const files = await generateFiles(glob);
+  await uploadFiles(files, gist, token);
 }
 
 module.exports = {
