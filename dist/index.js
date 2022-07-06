@@ -5426,6 +5426,8 @@ const FileSet = __nccwpck_require__(920);
 async function run(overrides = false) {
   let glob, gist;
 
+  console.log(process.env);
+
   if(overrides) {
     glob = overrides.glob;
     gist = overrides.gist;
