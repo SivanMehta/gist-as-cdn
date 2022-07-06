@@ -28,16 +28,11 @@ function generateInput(overrides) {
 async function uploadFiles(files, gist, token) {
   const octokit = github.getOctokit(token);
 
-  const { data: pullRequest } = await octokit.rest.pulls.get({
-    owner: 'SivanMehta',
-    repo: 'gist-as-cdn',
-    pull_number: 1,
-    mediaType: {
-      format: 'diff'
-    }
+  const { data } = await octokit.rest.gists.checkIsStarred({
+    gist_id: gist,
   });
 
-  console.log(pullRequest);
+  console.log(data);
 }
 
 async function run(overrides = false) {
