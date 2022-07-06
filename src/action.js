@@ -4,6 +4,8 @@ const FileSet = require('file-set');
 async function run(overrides = false) {
   let glob, gist;
 
+  console.log(process.env);
+
   if(overrides) {
     glob = overrides.glob;
     gist = overrides.gist;
