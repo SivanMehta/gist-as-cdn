@@ -1,12 +1,24 @@
-import { getInput } from '@actions/core';
-import FileSet from 'file-set';
+const { getInput } = require('@actions/core');
+const FileSet = require('file-set');
 
-export async function run() {
-  const glob = getInput('FILES');
+async function run(overrides = false) {
+  let glob, gist;
+
+  if(overrides) {
+    glob = overrides.glob;
+    gist = overrides.gist;
+  } else {
+    glob = getInput('FILES');
+    gist = getInput('GIST');
+  }
+
   const fileSet = new FileSet();
   await fileSet.add([glob]);
   const { files } = fileSet; 
   
-  const gist = getInput('GIST');
   console.log(`uploading ${files} to ${gist}`);
 }
+
+module.exports = {
+  run
+};

@@ -1,5 +1,5 @@
-import { setFailed } from '@actions/core';
-import { run } from './action';
+const { setFailed } = require('@actions/core');
+const { run } = require('./action');
 
 try {
   run();

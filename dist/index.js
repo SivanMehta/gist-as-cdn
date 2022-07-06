@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 351:
+/***/ 241:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -135,7 +135,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
-const command_1 = __nccwpck_require__(351);
+const command_1 = __nccwpck_require__(241);
 const file_command_1 = __nccwpck_require__(717);
 const utils_1 = __nccwpck_require__(278);
 const os = __importStar(__nccwpck_require__(37));
@@ -5417,6 +5417,36 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 348:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const { getInput } = __nccwpck_require__(186);
+const FileSet = __nccwpck_require__(920);
+
+async function run(overrides = false) {
+  let glob, gist;
+
+  if(overrides) {
+    glob = overrides.glob;
+    gist = overrides.gist;
+  } else {
+    glob = getInput('FILES');
+    gist = getInput('GIST');
+  }
+
+  const fileSet = new FileSet();
+  await fileSet.add([glob]);
+  const { files } = fileSet; 
+  
+  console.log(`uploading ${files} to ${gist}`);
+}
+
+module.exports = {
+  run
+};
+
+/***/ }),
+
 /***/ 491:
 /***/ ((module) => {
 
@@ -5495,69 +5525,14 @@ module.exports = require("tls");
 "use strict";
 module.exports = require("util");
 
-/***/ })
+/***/ }),
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __nccwpck_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		var threw = true;
-/******/ 		try {
-/******/ 			__webpack_modules__[moduleId].call(module.exports, module, module.exports, __nccwpck_require__);
-/******/ 			threw = false;
-/******/ 		} finally {
-/******/ 			if(threw) delete __webpack_module_cache__[moduleId];
-/******/ 		}
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat */
-/******/ 	
-/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
+/***/ 590:
+/***/ ((module) => {
+
 "use strict";
-// ESM COMPAT FLAG
-__nccwpck_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(186);
-// EXTERNAL MODULE: ./node_modules/glob/glob.js
-var glob = __nccwpck_require__(957);
-;// CONCATENATED MODULE: ./node_modules/array-back/index.js
+
 /**
  * Takes any input and guarantees an array back.
  *
@@ -5615,15 +5590,46 @@ function arrayify (input) {
   }
 }
 
-/* harmony default export */ const array_back = (arrayify);
-
-// EXTERNAL MODULE: external "fs"
-var external_fs_ = __nccwpck_require__(147);
-;// CONCATENATED MODULE: ./node_modules/file-set/index.mjs
+module.exports = arrayify;
 
 
+/***/ }),
 
-const fs = external_fs_.promises
+/***/ 920:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var glob = __nccwpck_require__(957);
+var arrayify = __nccwpck_require__(590);
+var origFs = __nccwpck_require__(147);
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+function _interopNamespace(e) {
+  if (e && e.__esModule) return e;
+  var n = Object.create(null);
+  if (e) {
+    Object.keys(e).forEach(function (k) {
+      if (k !== 'default') {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () { return e[k]; }
+        });
+      }
+    });
+  }
+  n["default"] = e;
+  return Object.freeze(n);
+}
+
+var glob__default = /*#__PURE__*/_interopDefaultLegacy(glob);
+var arrayify__default = /*#__PURE__*/_interopDefaultLegacy(arrayify);
+var origFs__namespace = /*#__PURE__*/_interopNamespace(origFs);
+
+const fs = origFs__namespace.promises;
 
 class FileSet {
   constructor () {
@@ -5635,17 +5641,17 @@ class FileSet {
     /** • fileSet.files :string[]
     ≈ The existing files found.
     */
-    this.files = []
+    this.files = [];
 
     /** • fileSet.dirs :string[]
     ≈ The existing directories found. Directory paths will always end with `'/'`.
     */
-    this.dirs = []
+    this.dirs = [];
 
     /** • fileSet.notExisting :string[]
     ≈ Paths which were not found.
     */
-    this.notExisting = []
+    this.notExisting = [];
   }
 
   /** ø fileSet.add(patterns)
@@ -5653,32 +5659,32 @@ class FileSet {
   • [patterns] :string|string[] - One or more file paths or glob expressions to inspect.
   */
   async add (files) {
-    files = array_back(files)
+    files = arrayify__default["default"](files);
     for (const file of files) {
       try {
-        const stat = await fs.stat(file)
+        const stat = await fs.stat(file);
         if (stat.isFile() && !this.files.includes(file)) {
-          this.files.push(file)
+          this.files.push(file);
         } else if (stat.isDirectory() && !this.dirs.includes(file)) {
-          this.dirs.push(file.endsWith('/') ? file : `${file}/`)
+          this.dirs.push(file.endsWith('/') ? file : `${file}/`);
         }
       } catch (err) {
         if (err.code === 'ENOENT') {
-          if (glob.hasMagic(file)) {
-            const found = await doGlob(file)
+          if (glob__default["default"].hasMagic(file)) {
+            const found = await doGlob(file);
             if (found.length) {
               for (const match of found) {
                 if (match.endsWith('/')) {
-                  if (!this.dirs.includes(match)) this.dirs.push(match)
+                  if (!this.dirs.includes(match)) this.dirs.push(match);
                 } else {
-                  if (!this.files.includes(match)) this.files.push(match)
+                  if (!this.files.includes(match)) this.files.push(match);
                 }
               }
             } else {
-              if (!this.notExisting.includes(file)) this.notExisting.push(file)
+              if (!this.notExisting.includes(file)) this.notExisting.push(file);
             }
           } else {
-            if (!this.notExisting.includes(file)) this.notExisting.push(file)
+            if (!this.notExisting.includes(file)) this.notExisting.push(file);
           }
         } else {
           throw err
@@ -5688,42 +5694,77 @@ class FileSet {
   }
 
   clear () {
-    this.files = []
-    this.dirs = []
-    this.notExisting = []
+    this.files = [];
+    this.dirs = [];
+    this.notExisting = [];
   }
 }
 
 async function doGlob (pattern) {
   return new Promise((resolve, reject) => {
-    glob(pattern, { mark: true }, (err, matches) => {
+    glob__default["default"](pattern, { mark: true }, (err, matches) => {
       if (err) {
-        reject(err)
+        reject(err);
       } else {
-        resolve(matches)
+        resolve(matches);
       }
-    })
+    });
   })
 }
 
-/* harmony default export */ const file_set = (FileSet);
-
-;// CONCATENATED MODULE: ./src/index.js
+module.exports = FileSet;
 
 
+/***/ })
 
-async function run() {
-  const glob = (0,core.getInput)('FILES');
-  const fileSet = new file_set();
-  await fileSet.add([glob]);
-  const { files } = fileSet; 
-  
-  const gist = (0,core.getInput)('GIST');
-  console.log(`uploading ${files} to ${gist}`);}
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __nccwpck_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		var threw = true;
+/******/ 		try {
+/******/ 			__webpack_modules__[moduleId].call(module.exports, module, module.exports, __nccwpck_require__);
+/******/ 			threw = false;
+/******/ 		} finally {
+/******/ 			if(threw) delete __webpack_module_cache__[moduleId];
+/******/ 		}
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat */
+/******/ 	
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+const { setFailed } = __nccwpck_require__(186);
+const { run } = __nccwpck_require__(348);
+
 try {
   run();
 } catch (e) {
-  (0,core.setFailed)(e.message);
+  setFailed(e.message);
 }
 })();
 
