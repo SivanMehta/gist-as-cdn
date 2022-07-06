@@ -1,4 +1,5 @@
 const { getInput } = require('@actions/core');
+const github = require('@actions/github');
 const FileSet = require('file-set');
 
 async function generateFiles(glob) {

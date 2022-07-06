@@ -20,6 +20,6 @@ jobs:
       - name: Run
         uses: ./
         with:
-          FILES: "README.md" # we'll use this repo's README as an example
+          FILES: "*.md"
           GIST: "a75f4dcf3202a129802100332335019a"
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
