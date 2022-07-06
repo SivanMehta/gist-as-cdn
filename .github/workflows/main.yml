@@ -3,10 +3,6 @@ on:
   push:
     branches: [ master, testing ]
 
-env:
-  FILES: "README.md" # we'll use this repo's README as an example
-  GIST: "a75f4dcf3202a129802100332335019a"
-
 jobs:
   build:
     name: dogfood
@@ -22,7 +18,7 @@ jobs:
           node-version: '16'
 
       - name: Run
-        run: node dist/index.js
-        env:
-          INPUT_FILES: ${{ env.FILES }}
-          INPUT_GIST: ${{ env.GIST }}
+        uses: ./
+        with:
+          FILES: "README.md" # we'll use this repo's README as an example
+          GIST: "a75f4dcf3202a129802100332335019a"
