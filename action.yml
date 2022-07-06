@@ -2,11 +2,13 @@ name: 'Gist as CDN'
 description: 'Upload artifacts to a github gist'
 inputs:
   FILES:  # id of input
-    description: 'What to upload'
+    description: 'Glob of file(s) to upload'
     required: true
   GIST:
     description: "Where to upload files"
     required: true
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  steps:
+    - name: "list files"
+      run: ls
