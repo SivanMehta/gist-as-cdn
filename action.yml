@@ -7,6 +7,9 @@ inputs:
   GIST:
     description: "Where to upload file(s)"
     required: true
+  TOKEN:
+    description: 'Github auth token'
+    required: true
 runs:
   using: 'node16'
   main: 'dist/index.js'
