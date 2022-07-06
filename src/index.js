@@ -1,14 +1,6 @@
-import { getInput, setFailed } from '@actions/core';
-import FileSet from 'file-set';
+import { setFailed } from '@actions/core';
+import { run } from './action';
 
-async function run() {
-  const glob = getInput('FILES');
-  const fileSet = new FileSet();
-  await fileSet.add([glob]);
-  const { files } = fileSet; 
-  
-  const gist = getInput('GIST');
-  console.log(`uploading ${files} to ${gist}`);}
 try {
   run();
 } catch (e) {
