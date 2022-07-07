@@ -4,12 +4,12 @@ on:
   push:
     branches: [ master, testing ]
 
-permissions: "write-all|read-all"
-
 jobs:
   build:
     name: dogfood
     runs-on: ubuntu-latest
+    permissions:
+      gist: read|write
 
     steps:
       - name: Checkout
