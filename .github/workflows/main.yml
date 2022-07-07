@@ -1,11 +1,13 @@
 name: Dogfooding this action
+
 on:
   push:
     branches: [ master, testing ]
 
+permissions: write-all|read-all
+
 jobs:
   build:
-    permissions: write-all|read-all
     name: dogfood
     runs-on: ubuntu-latest
 
