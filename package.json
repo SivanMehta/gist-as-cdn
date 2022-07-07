@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "ncc build src/index.js -o dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "local": "node test/local.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@vercel/ncc": "^0.34.0"
   },

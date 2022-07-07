@@ -5,7 +5,10 @@ inputs:
     description: 'Glob of file(s) to upload'
     required: true
   GIST:
-    description: "Where to upload files"
+    description: "Where to upload file(s)"
+    required: true
+  TOKEN:
+    description: 'Github auth token'
     required: true
 runs:
   using: 'node16'
