@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master, testing ]
 
-permissions: write-all|read-all
+permissions: "write-all|read-all"
 
 jobs:
   build:
