@@ -4,8 +4,8 @@ on:
   push:
     branches: [ master, testing ]
 
-permissions:
-  gist: read|write
+permissions: read-all|write-all
+
 
 jobs:
   build:
