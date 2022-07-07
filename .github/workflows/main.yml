@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    permissions: write-all
+    permissions: write-all|read-all
     name: dogfood
     runs-on: ubuntu-latest
 
